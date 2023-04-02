@@ -68,33 +68,7 @@ def __main__():
     print('Accuracy on train set: ', round(train_history[-1, 1], 5))
     print("Lost on train set: ", round(train_history[-1, 0], 5))
 
-    # #Create train Dataset
-    # X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
-    # X_train = X_train.T
-    # print(y_train.shape)
-    # y_train = y_train.reshape((1, y_train.shape[0]))
-    # print(y_train.shape)
-
-    # #Create test Dataset
-    # X_test, y_test = make_circles(n_samples=20, noise=0.1, factor=0.3, random_state=1)
-    # X_test = X_test.T
-    # y_test = y_test.reshape((1, y_test.shape[0]))
-
     print(y_pred)
-
-    # plt.figure(figsize=(12, 4))
-    # #Print train Dataset
-    # plt.subplot(1, 2, 1)
-    # plt.scatter(X_train[0, :], X_train[1, :], c=y_train, cmap='summer')
-    # plt.title('TRAIN DATASET')
-
-    # #Print test Dataset
-    # plt.subplot(1, 2, 2)
-    # plt.scatter(X_test[0, :], X_test[1, :], c=y_test, cmap='cool')
-    # plt.title('TEST DATASET')
-
-    # plt.show()
-
     printLearningCruve(train_history)
 
 __main__()

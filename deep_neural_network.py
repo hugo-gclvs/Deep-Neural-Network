@@ -57,26 +57,30 @@ def __main__():
 
     X_train_reshaped = (X_train.reshape(X_train.shape[0], -1) / X_train.max())
     X_test_reshaped = (X_test.reshape(X_test.shape[0], -1) / X_train.max())
+    X_train_reshaped = X_train_reshaped.T
+    X_test_reshaped = X_test_reshaped.T
 
-    # print(X_train.shape, X_train.shape)
-    # print(X_test_reshaped.shape)
+    y_train = y_train.reshape((1, y_train.shape[0]))
+    y_test = y_test.reshape((1, y_test.shape[0]))
 
-    # train_history, y_pred = deep_neural_network(X_train_reshaped, y_train, X_test_reshaped, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+    train_history, y_pred = deep_neural_network(X_train_reshaped, y_train, X_test_reshaped, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
 
-    # print('Accuracy on train set: ', round(train_history[-1, 1], 5))
-    # print("Lost on train set: ", round(train_history[-1, 0], 5))
+    print('Accuracy on train set: ', round(train_history[-1, 1], 5))
+    print("Lost on train set: ", round(train_history[-1, 0], 5))
 
     # #Create train Dataset
     # X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
     # X_train = X_train.T
+    # print(y_train.shape)
     # y_train = y_train.reshape((1, y_train.shape[0]))
+    # print(y_train.shape)
 
     # #Create test Dataset
     # X_test, y_test = make_circles(n_samples=20, noise=0.1, factor=0.3, random_state=1)
     # X_test = X_test.T
     # y_test = y_test.reshape((1, y_test.shape[0]))
 
-    # print(y_pred)
+    print(y_pred)
 
     # plt.figure(figsize=(12, 4))
     # #Print train Dataset
@@ -91,6 +95,6 @@ def __main__():
 
     # plt.show()
 
-    # printLearningCruve(train_history)
+    printLearningCruve(train_history)
 
 __main__()

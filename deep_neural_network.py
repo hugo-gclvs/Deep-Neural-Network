@@ -67,7 +67,7 @@ def __main__():
     print('Accuracy on train set: ', round(train_history[-1, 1], 5))
     print("Lost on train set: ", round(train_history[-1, 0], 5))
 
-    # print(y_pred)
+    print(y_pred)
 
     # plt.figure(figsize=(12, 4))
     # #Print train Dataset

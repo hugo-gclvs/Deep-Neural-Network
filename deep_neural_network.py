@@ -52,20 +52,29 @@ def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 1
 
 
 def __main__():
-    #Create train Dataset
-    X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
-    X_train = X_train.T
-    y_train = y_train.reshape((1, y_train.shape[0]))
+    
+    X_train, y_train, X_test, y_test = load_data()
 
-    #Create test Dataset
-    X_test, y_test = make_circles(n_samples=20, noise=0.1, factor=0.3, random_state=1)
-    X_test = X_test.T
-    y_test = y_test.reshape((1, y_test.shape[0]))
+    X_train_reshaped = (X_train.reshape(X_train.shape[0], -1) / X_train.max())
+    X_test_reshaped = (X_test.reshape(X_test.shape[0], -1) / X_train.max())
 
-    train_history, y_pred = deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+    # print(X_train.shape, X_train.shape)
+    # print(X_test_reshaped.shape)
 
-    print('Accuracy on train set: ', round(train_history[-1, 1], 5))
-    print("Lost on train set: ", round(train_history[-1, 0], 5))
+    # train_history, y_pred = deep_neural_network(X_train_reshaped, y_train, X_test_reshaped, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+
+    # print('Accuracy on train set: ', round(train_history[-1, 1], 5))
+    # print("Lost on train set: ", round(train_history[-1, 0], 5))
+
+    # #Create train Dataset
+    # X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
+    # X_train = X_train.T
+    # y_train = y_train.reshape((1, y_train.shape[0]))
+
+    # #Create test Dataset
+    # X_test, y_test = make_circles(n_samples=20, noise=0.1, factor=0.3, random_state=1)
+    # X_test = X_test.T
+    # y_test = y_test.reshape((1, y_test.shape[0]))
 
     # print(y_pred)
 

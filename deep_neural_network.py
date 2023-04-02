@@ -51,10 +51,9 @@ def deep_neural_network(X, y, hidden_layers = (16, 16, 16), learning_rate = 0.00
 
 def __main__():
     #Create train Dataset
-    #X, y = make_blobs(n_samples=100, n_features=2, centers=2, cluster_std=1.5, random_state=1)
-    X, y = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
-    X = X.T
-    y = y.reshape((1, y.shape[0]))
+    X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
+    X_train = X_train.T
+    y_train = y_train.reshape((1, y_train.shape[0]))
 
     #Create test Dataset
     X_test, y_test = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=1)
@@ -62,7 +61,7 @@ def __main__():
     y_test = y_test.reshape((1, y_test.shape[0]))
 
     #Print train Dataset
-    plt.scatter(X[0, :], X[1, :], c=y, cmap='summer')
+    plt.scatter(X_train[0, :], X_train[1, :], c=y_train, cmap='summer')
     plt.title('TRAIN DATASET')
     plt.show()
 
@@ -71,7 +70,7 @@ def __main__():
     plt.title('TEST DATASET')
     plt.show()
 
-    deep_neural_network(X, y, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+    deep_neural_network(X_train, y_train, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
 
 
 __main__()

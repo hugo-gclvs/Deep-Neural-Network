@@ -63,7 +63,7 @@ def __main__():
     y_train = y_train.reshape((1, y_train.shape[0]))
     y_test = y_test.reshape((1, y_test.shape[0]))
 
-    train_history, y_pred = deep_neural_network(X_train_reshaped, y_train, X_test_reshaped, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+    train_history, y_pred = deep_neural_network(X_train_reshaped, y_train, X_test_reshaped, y_test, hidden_layers = (128, 128, 64), learning_rate = 0.1, n_iter = 3000)
 
     print('Accuracy on train set: ', round(train_history[-1, 1], 5))
     print("Lost on train set: ", round(train_history[-1, 0], 5))

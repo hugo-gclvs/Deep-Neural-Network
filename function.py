@@ -27,6 +27,16 @@ def load_data():
     X_test = np.array(test_dataset["X_test"][:]) # Test features
     X_test = np.append(X_test, cv2.rotate(np.array(test_dataset["X_test"][:]), cv2.ROTATE_180), axis = 0)
     y_test = np.array(test_dataset["Y_test"][:]) # Test labels
-    y_test = np.append(y_test, test_dataset["Y_test"][:], axis = 0) 
-    
+    y_test = np.append(y_test, cv2.rotate(test_dataset["Y_test"][:], cv2.ROTATE_180), axis = 0)
+
+    # plt.figure(figsize=(16, 8))
+    # j = 1
+    # for i in range(1, 400, 20):
+    #     plt.subplot(4, 5, j)
+    #     plt.imshow(X_test[i], cmap='gray')
+    #     plt.title(y_test[i])
+    #     plt.tight_layout()
+    #     j += 1
+    # plt.show()
+
     return X_train, y_train, X_test, y_test

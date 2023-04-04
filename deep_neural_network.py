@@ -10,23 +10,25 @@ from update import update
 from predict import predict
 from function import *
 
-def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.001, n_iter = 3000):
+def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 256, learning_rate = 0.001, epochs = 3000):
     
     #Train set
     #Init parameters
-    dimensions = list(hidden_layers)
+    dimensions = list()
+    dimensions.insert(0, hidden_layers)
     dimensions.insert(0, X_train.shape[0])
     dimensions.append(y_train.shape[0])
     np.random.seed(1)
     parametres = initialisation(dimensions)
 
     #Tableau numpy contenant les futures accuracy et log_loss
-    training_history = np.zeros((int(n_iter), 2))
+    training_history = np.zeros((int(epochs), 2))
+    test_history = np.zeros((int(epochs), 2))
 
     C = len(parametres) // 2
 
     #Gradient descent
-    for i in tqdm(range(n_iter)):
+    for i in tqdm(range(epochs)):
 
         activations = forward_propagation(X_train, parametres)
         gradients = back_propagation(y_train, parametres, activations)
@@ -38,36 +40,36 @@ def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 1
         y_pred = predict(X_train, parametres)
         training_history[i, 1] = (accuracy_score(y_train.flatten(), y_pred.flatten()))
 
-    #Test set
-    # gradient descent
-    for i in tqdm(range(n_iter)):
-
+        # Validation set
         activations = forward_propagation(X_test, parametres)
         Af = activations['A' + str(C)]
 
         # calcul du log_loss et de l'accuracy
-        y_test = predict(X_test, parametres)
+        
+        test_history[i, 0] = (log_loss(y_test.flatten(), Af.flatten()))
+        y_pred = predict(X_test, parametres)
+        test_history[i, 1] = (accuracy_score(y_test.flatten(), y_pred.flatten()))
 
-    return training_history, y_test
+    return training_history, test_history
 
 
 def __main__():
     #Create train Dataset
-    X_train, y_train = make_circles(n_samples=100, noise=0.1, factor=0.3, random_state=0)
+    X_train, y_train = make_circles(n_samples=1000, noise=0.1, factor=0.3, random_state=0)
     X_train = X_train.T
     y_train = y_train.reshape((1, y_train.shape[0]))
 
     #Create test Dataset
-    X_test, y_test = make_circles(n_samples=20, noise=0.1, factor=0.3, random_state=1)
+    X_test, y_test = make_circles(n_samples=200, noise=0.1, factor=0.3, random_state=1)
     X_test = X_test.T
     y_test = y_test.reshape((1, y_test.shape[0]))
 
-    train_history, y_pred = deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 16, 16), learning_rate = 0.1, n_iter = 3000)
+    train_history, test_history = deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 256, learning_rate = 0.1, epochs = 5000)
 
     print('Accuracy on train set: ', round(train_history[-1, 1], 5))
     print("Lost on train set: ", round(train_history[-1, 0], 5))
-
-    print(y_pred)
+    print('Accuracy on test set: ', round(test_history[-1, 1], 5))
+    print("Lost on test set: ", round(test_history[-1, 0], 5))
 
     # plt.figure(figsize=(12, 4))
     # #Print train Dataset
@@ -82,6 +84,6 @@ def __main__():
 
     # plt.show()
 
-    # printLearningCruve(train_history)
+    printLearningCurve(train_history, test_history)
 
 __main__()

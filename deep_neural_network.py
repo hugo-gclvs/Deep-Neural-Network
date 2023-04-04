@@ -17,6 +17,7 @@ def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = (16, 1
     dimensions = list(hidden_layers)
     dimensions.insert(0, X_train.shape[0])
     dimensions.append(y_train.shape[0])
+    print(dimensions)
     np.random.seed(1)
     parametres = initialisation(dimensions)
 

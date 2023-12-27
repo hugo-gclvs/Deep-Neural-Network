@@ -10,7 +10,7 @@ from update import update
 from predict import predict
 from function import *
 
-def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 256, learning_rate = 0.001, epochs = 3000):
+def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 16, learning_rate = 0.01, epochs = 3000):
     
     #Train set
     #Init parameters
@@ -18,6 +18,7 @@ def deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 256, l
     dimensions.insert(0, hidden_layers)
     dimensions.insert(0, X_train.shape[0])
     dimensions.append(y_train.shape[0])
+    print(dimensions)
     np.random.seed(1)
     parametres = initialisation(dimensions)
 
@@ -58,18 +59,22 @@ def __main__():
     X_train, y_train = make_circles(n_samples=1000, noise=0.1, factor=0.3, random_state=0)
     X_train = X_train.T
     y_train = y_train.reshape((1, y_train.shape[0]))
+    # show dataset
+    # plt.scatter(X_train[0, :], X_train[1, :], c=y_train, cmap='summer')
+    # plt.show()
+
 
     #Create test Dataset
     X_test, y_test = make_circles(n_samples=200, noise=0.1, factor=0.3, random_state=1)
     X_test = X_test.T
     y_test = y_test.reshape((1, y_test.shape[0]))
 
-    train_history, test_history = deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 256, learning_rate = 0.1, epochs = 5000)
+    # train_history, test_history = deep_neural_network(X_train, y_train, X_test, y_test, hidden_layers = 64, learning_rate = 0.1, epochs = 500)
 
-    print('Accuracy on train set: ', round(train_history[-1, 1], 5))
-    print("Lost on train set: ", round(train_history[-1, 0], 5))
-    print('Accuracy on test set: ', round(test_history[-1, 1], 5))
-    print("Lost on test set: ", round(test_history[-1, 0], 5))
+    # print('Accuracy on train set: ', round(train_history[-1, 1], 5))
+    # print("Lost on train set: ", round(train_history[-1, 0], 5))
+    # print('Accuracy on test set: ', round(test_history[-1, 1], 5))
+    # print("Lost on test set: ", round(test_history[-1, 0], 5))
 
     # plt.figure(figsize=(12, 4))
     # #Print train Dataset
@@ -84,6 +89,6 @@ def __main__():
 
     # plt.show()
 
-    printLearningCurve(train_history, test_history)
+    # printLearningCurve(train_history, test_history)
 
 __main__()
